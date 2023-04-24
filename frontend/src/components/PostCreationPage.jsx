@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
 import { Button, IconButton } from "@mui/material";
-import { CloseIcon } from "@mui/icons-material";
+import { Clear } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,12 @@ const PostCreationPage = () => {
   const initialValues = {
     content: "",
   };
+
+  const redirectToHomePage = () => {
+    return navigate("/");
+  };
+
+  
 
   const createPost = async (values, actions) => {
     const { content } = values;
@@ -42,8 +48,13 @@ const PostCreationPage = () => {
       onSubmit={createPost}
     >
       <Form className="posts-form">
+        <div className="posts-form__header">
+          <h4>Публикация</h4>
+          <IconButton onClick={redirectToHomePage}>
+            <Clear />
+          </IconButton>
+        </div>
         <div className="form-group">
-          <label htmlFor="content">Публикация</label>
           <Field className="form-field" component="textarea" name="content" />
           <p className="error-text">
             <ErrorMessage name="content" />
